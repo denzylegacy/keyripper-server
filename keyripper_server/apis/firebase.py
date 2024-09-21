@@ -19,8 +19,12 @@ class Firebase:
                 _credentials, {"databaseURL": FIREBASE_URL}
             )
 
-    def __init__(self) -> None:
+    def __init__(
+            self, firebase_api_key: dict | str = FIREBASE_API_KEY, key_file: str = None
+        ) -> None:
         self.default_entry_ensurer("root", {"successful_connection_phrase": "Hello, world!"})
+        self.firebase_api_key: dict | str = firebase_api_key
+        self.key_file: str = key_file
 
     def firebase_connection(self, reference_path: str) -> Union[db.Reference, None]:
         """
@@ -33,15 +37,17 @@ class Firebase:
             Union[db.Reference, None]: Returns the Firebase reference or None if an error occurs.
         """
         try:
-            if FIREBASE_API_KEY:
-                self.firebase_launcher(credentials.Certificate(json.loads(FIREBASE_API_KEY)))
-            else:
+            if self.firebase_api_key:
+                self.firebase_launcher(credentials.Certificate(json.loads(self.firebase_api_key)))
+            elif self.key_file:
                 self.firebase_launcher(
                     credentials.Certificate(
-                        r"keyripper_server/apis/c18de10c13.json"
+                        fr"keyripper_server/apis/{self.key_file}.json"
                     )
                 )
-
+            else:
+                log.warn("No credentials or credential file name were provided!")
+                return None
             return db.reference(reference_path)
         except Exception as e:
             log.error(f"Error establishing Firebase connection: {e}")

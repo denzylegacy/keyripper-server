@@ -15,8 +15,8 @@ from keyripper_server.application import RequestsController
 router = APIRouter(prefix='/request', tags=['request'])
 
 def auth(request: Request):
-    if request.headers.get("Authorization") != API_AUTH_TOKEN:
-        raise HTTPException(status_code=403, detail="Forbidden: Invalid token!")
+    if request.headers.get('Authorization') != API_AUTH_TOKEN:
+        raise HTTPException(status_code=403, detail='Forbidden: Invalid token!')
 
 
 @router.get('/swagger')
@@ -61,5 +61,4 @@ async def post_request(
     Returns:
         Response: HTTP response.
     """
-
     return RequestsController(request, response).handle()

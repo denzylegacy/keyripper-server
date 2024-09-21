@@ -12,7 +12,7 @@ class RequestsController:
 
 
     def handle(self) -> None:
-        try:        
+        try:
             log.info(f'[request] Content: {self.request}')
             
             return {"success": "Ok"}
