@@ -7,7 +7,7 @@ import datetime
 import pytz
 
 from keyripper_server.infra import log, API_AUTH_TOKEN
-from apis import Firebase
+from keyripper_server.apis import Firebase
 
 
 class ResponseSchema(BaseModel):
