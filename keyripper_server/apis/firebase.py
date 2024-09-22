@@ -22,9 +22,9 @@ class Firebase:
     def __init__(
             self, firebase_api_key: dict | str = FIREBASE_API_KEY, key_file: str = None
         ) -> None:
-        self.default_entry_ensurer("root", {"successful_connection_phrase": "Hello, world!"})
         self.firebase_api_key: dict | str = firebase_api_key
         self.key_file: str = key_file
+        self.default_entry_ensurer("root", {"successful_connection_phrase": "Hello, world!"})
 
     def firebase_connection(self, reference_path: str) -> Union[db.Reference, None]:
         """
