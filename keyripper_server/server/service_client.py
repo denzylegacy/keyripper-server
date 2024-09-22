@@ -20,7 +20,7 @@ class SimpleClient:
         headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': f'Bearer {self.token}'
+            # 'Authorization': f'Bearer {self.token}'
         }
 
         response = requests.post(self.url, json=payload, headers=headers)
