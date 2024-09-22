@@ -16,9 +16,9 @@ class SimpleClient:
         payload = {
             'message': 'This is a confirmation message.'
         }
-
+        
         headers = {
-            'Authorization': self.token
+            'Authorization': f'Bearer {self.token}'
         }
 
         response = requests.post(self.url, json=payload, headers=headers)

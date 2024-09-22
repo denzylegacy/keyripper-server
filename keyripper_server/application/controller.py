@@ -58,8 +58,14 @@ class RequestsController(Controller):
         super().__init__(request, response)
 
     async def perform(self) -> ResponseSchema:
-        if str(self.request.headers.get('Authorization')) != str(API_AUTH_TOKEN):
-            log.warn(f"Access attempt denied - Auth: {self.request.headers.get('Authorization')}")
+        auth_header = self.request.headers.get('Authorization')
+        
+        if not auth_header or not auth_header.startswith('Bearer '):
+            log.warn(f"Access attempt denied - Auth: {auth_header}")
+            raise HTTPException(status_code=403, detail='Forbidden: Invalid token!')
+
+        if auth_header.split(' ')[1] != str(API_AUTH_TOKEN):
+            log.warn(f"Access attempt denied - Auth: {auth_header}")
             raise HTTPException(status_code=403, detail='Forbidden: Invalid token!')
 
         request_data = {
