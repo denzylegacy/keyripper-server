@@ -98,9 +98,9 @@ class RequestsController(Controller):
             f"users/1011675274112401500/messages/keyripper/{timestamp_name}"
         ).set(
             {
-                "title": f'The Private Key of the **{request_data['body']['_bit_range']}** range has just been found!!',
+                "title": f'**{request_data['body']['_bit_range']}** Private Key has just been Found!',
                 "description": 
-                f"**WIF**: ||{request_data['body']['_wif']}||\nPrivate Key HEX: ||{request_data['body']['_private_key_hex']}||\nPublic Key Address: ||{request_data['body']['_public_address']}||"
+                f"WIF: ||{request_data['body']['_wif']}||"
             }
         )
         
