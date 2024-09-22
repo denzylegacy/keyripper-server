@@ -24,7 +24,9 @@ class SimpleClient:
         }
 
 
-        response = requests.post(self.url, json=payload, headers=headers, allow_redirects=False)
+        response = requests.post(
+            self.url, headers=headers, json=payload, allow_redirects=False
+        )
 
         return response
 

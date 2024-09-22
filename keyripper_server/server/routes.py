@@ -43,7 +43,7 @@ async def get_request(
     return await controller.handle()
 
 
-@router.get('/')
+@router.post('/')
 async def post_request(
         request: Request, response: Response
     ):
