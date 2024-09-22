@@ -9,7 +9,7 @@ load_dotenv()
 class SimpleClient:
 
     def __init__(self) -> None:
-        self.url = "http://127.0.0.1:8000/request"
+        self.url = "http://127.0.0.1:8000/request/"
         self.token = os.getenv("API_AUTH_TOKEN", "")
 
     def simple_client_post(self):
@@ -18,12 +18,11 @@ class SimpleClient:
         }
 
         headers = {
-            'Accept': 'application/json',
             'Content-Type': 'application/json',
-            # 'Authorization': f'Bearer {self.token}'
+            'Authorization': f'Bearer {self.token}'
         }
 
-        response = requests.post(self.url, json=payload, headers=headers)
+        response = requests.post(self.url, headers=headers, json=payload)
         return response
 
 
