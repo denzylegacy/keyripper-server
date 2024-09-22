@@ -16,9 +16,8 @@ router = APIRouter(prefix='/request', tags=['request'])
 
 def auth(request: Request):
     if str(request.headers.get('Authorization')) != str(API_AUTH_TOKEN):
-        raise HTTPException(status_code=403, detail='Forbidden: Invalid token!')
-    else:
         log.warn("Access attempt denied!")
+        raise HTTPException(status_code=403, detail='Forbidden: Invalid token!')
 
 
 @router.get('/swagger')
@@ -34,7 +33,7 @@ async def get_swagger():
 
 @router.get('/')
 async def get_request(
-        request: Request, response: Response, token: str = Depends(auth)
+        request: Request, response: Response
     ):
     """
     Handles GET requests.
@@ -46,12 +45,13 @@ async def get_request(
     Returns:
         Response: HTTP response.
     """
+    auth(request=request)
     return RequestsController(request, response).handle()
 
 
 @router.post('/')
 async def post_request(
-        request: Request, response: Response, token: str = Depends(auth)
+        request: Request, response: Response
     ):
     """
     Handles POST requests.
@@ -63,4 +63,5 @@ async def post_request(
     Returns:
         Response: HTTP response.
     """
+    auth(request=request)
     return RequestsController(request, response).handle()

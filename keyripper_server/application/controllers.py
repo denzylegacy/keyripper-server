@@ -13,7 +13,7 @@ class RequestsController:
             request_data = {
                 "method": self.request.method,
                 "url": str(self.request.url),
-                "headers": dict(self.request.headers),
+                # "headers": dict(self.request.headers),
                 "query_params": dict(self.request.query_params),
                 "path_params": dict(self.request.path_params),
                 "body": self.request.json() if self.request.method in ["POST", "PUT"] else None
