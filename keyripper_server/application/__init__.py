@@ -1,3 +1,3 @@
 __all__ = ["RequestsController"]
 
-from .controllers import RequestsController
+from .controller import RequestsController
