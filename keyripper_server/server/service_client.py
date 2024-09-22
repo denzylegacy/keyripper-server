@@ -17,12 +17,15 @@ class SimpleClient:
             'message': 'This is a confirmation message.'
         }
 
-        # headers = {
-        #     'Authorization': f'Bearer {self.token}'
-        # }
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.token}'
+        }
 
-        response = requests.post(self.url, json=payload)  # headers=headers
+        response = requests.post(self.url, json=payload, headers=headers)
         return response
+
 
 
 if __name__ == "__main__":        
