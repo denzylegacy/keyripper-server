@@ -13,16 +13,19 @@ class SimpleClient:
         self.token = os.getenv("API_AUTH_TOKEN", "")
 
     def simple_client_post(self):
-        payload = {
-            'message': 'This is a confirmation message.'
-        }
-
         headers = {
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.token}'
         }
 
-        response = requests.post(self.url, headers=headers, json=payload)
+        payload = {
+            'message': 'This is a confirmation message.'
+        }
+
+
+        response = requests.post(self.url, json=payload, headers=headers, allow_redirects=False)
+
         return response
 
 
