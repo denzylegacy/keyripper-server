@@ -8,15 +8,17 @@ This router handles incoming requests to the keyripper API.
 from fastapi import APIRouter, Request, Response, HTTPException, Depends
 from fastapi.responses import RedirectResponse
 
-from keyripper_server.infra import API_AUTH_TOKEN
+from keyripper_server.infra import log, API_AUTH_TOKEN
 from keyripper_server.application import RequestsController
 
 
 router = APIRouter(prefix='/request', tags=['request'])
 
 def auth(request: Request):
-    if request.headers.get('Authorization') != API_AUTH_TOKEN:
+    if str(request.headers.get('Authorization')) != str(API_AUTH_TOKEN):
         raise HTTPException(status_code=403, detail='Forbidden: Invalid token!')
+    else:
+        log.warn("Access attempt denied!")
 
 
 @router.get('/swagger')
