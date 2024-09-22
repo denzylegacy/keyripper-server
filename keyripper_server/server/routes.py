@@ -25,7 +25,6 @@ async def get_swagger():
     return RedirectResponse(url="/docs")
 
 
-@router.get('')
 @router.get('/')
 async def get_request(
         request: Request, response: Response
@@ -44,7 +43,6 @@ async def get_request(
     return await controller.handle()
 
 
-@router.get('')
 @router.get('/')
 async def post_request(
         request: Request, response: Response
