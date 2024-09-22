@@ -63,11 +63,10 @@ class Firebase:
         """
         try:
             ref = self.firebase_connection(reference_path)
-            if ref is not None:
+            if ref is None:
                 ref.set(default_data)
                 log.info(f"Initial key '{reference_path}' created with default data.")
             else:
-                print("refrefref", ref)
                 log.info(f"Initial key '{reference_path}' already exists in Firebase.")
         except Exception as e:
             log.error(f"Error validating or creating initial key in Firebase: {e}")
