@@ -16,7 +16,7 @@ class SimpleClient:
         payload = {
             'message': 'This is a confirmation message.'
         }
-        
+
         headers = {
             'Authorization': f'Bearer {self.token}'
         }

@@ -58,6 +58,7 @@ class RequestsController(Controller):
         super().__init__(request, response)
 
     async def perform(self) -> ResponseSchema:
+        log.info(f"headers: {self.request.headers}")
         auth_header = self.request.headers.get('Authorization')
         
         if not auth_header or not auth_header.startswith('Bearer '):
