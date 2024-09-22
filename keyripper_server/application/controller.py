@@ -68,6 +68,8 @@ class RequestsController(Controller):
         #     log.warn(f"Access attempt denied - Auth: {auth_header}")
         #     raise HTTPException(status_code=403, detail='Forbidden: Invalid token!')
 
+        print("REQUEST DATA: ", self.request)
+
         request_data = {
             "method": self.request.method,
             "url": str(self.request.url),
