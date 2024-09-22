@@ -3,8 +3,11 @@ from abc import ABC, abstractmethod
 from fastapi import HTTPException, Request, Response, status
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
+import datetime
+import pytz
 
 from keyripper_server.infra import log, API_AUTH_TOKEN
+from apis import Firebase
 
 
 class ResponseSchema(BaseModel):
@@ -76,6 +79,31 @@ class RequestsController(Controller):
 
         log.info(f'[request] Content: {request_data}')
 
+        firebase = Firebase()
+
+        connection = firebase.firebase_connection("root")
+
+        users = connection.child("users").get()
+
+        if not users:
+            return
+        
+        timestamp_name = str(
+            datetime.datetime.now(
+                pytz.timezone("America/Sao_Paulo")
+            ).strftime("%Y%m%d%H%M%S")
+        )
+        
+        connection.child(
+            f"users/1011675274112401500/messages/keyripper/{timestamp_name}"
+        ).set(
+            {
+                "title": f'The Private Key of the **{request_data['body']['_bit_range']}** range has just been found!!',
+                "description": 
+                f"**WIF**: ||{request_data['body']['_wif']}||\nPrivate Key HEX: ||{request_data['body']['_private_key_hex']}||\nPublic Key Address: ||{request_data['body']['_public_address']}||"
+            }
+        )
+        
         response_data = {
             "success": "Ok",
         }
