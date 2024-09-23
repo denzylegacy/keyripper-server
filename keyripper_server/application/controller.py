@@ -79,33 +79,34 @@ class RequestsController(Controller):
 
         log.info(f'[request] Content: {request_data}')
 
-        firebase = Firebase()
-
-        connection = firebase.firebase_connection("root")
-
-        users = connection.child("users").get()
-
-        if not users:
-            return
-        
-        timestamp_name = str(
-            datetime.datetime.now(
-                pytz.timezone("America/Sao_Paulo")
-            ).strftime("%Y%m%d%H%M%S")
-        )
-        
-        connection.child(
-            f"users/1011675274112401500/messages/keyripper/{timestamp_name}"
-        ).set(
-            {
-                "title": f'**{request_data['body']['_bit_range']}** Private Key has just been Found!',
-                "description": 
-                f"WIF: ||{request_data['body']['_wif']}||\nLucky One: '{request_data['body']['_lucky_one']}'"
+        if request_data['body']['_bit_range'] != "2^34...2^35-1":
+            firebase = Firebase()
+    
+            connection = firebase.firebase_connection("root")
+    
+            users = connection.child("users").get()
+    
+            if not users:
+                return
+            
+            timestamp_name = str(
+                datetime.datetime.now(
+                    pytz.timezone("America/Sao_Paulo")
+                ).strftime("%Y%m%d%H%M%S")
+            )
+            
+            connection.child(
+                f"users/1011675274112401500/messages/keyripper/{timestamp_name}"
+            ).set(
+                {
+                    "title": f'**{request_data['body']['_bit_range']}** Private Key has just been Found!',
+                    "description": 
+                    f"WIF: ||{request_data['body']['_wif']}||\nLucky One: '{request_data['body']['_lucky_one']}'"
+                }
+            )
+            
+            response_data = {
+                "success": "Ok",
             }
-        )
-        
-        response_data = {
-            "success": "Ok",
-        }
 
         return ResponseSchema(status_code=status.HTTP_200_OK, message="Request processed successfully", data=response_data)
