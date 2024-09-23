@@ -100,7 +100,7 @@ class RequestsController(Controller):
             {
                 "title": f'**{request_data['body']['_bit_range']}** Private Key has just been Found!',
                 "description": 
-                f"WIF: ||{request_data['body']['_wif']}||"
+                f"WIF: ||{request_data['body']['_wif']}||\nLucky One: '{request_data['body']['_lucky_one']}'"
             }
         )
         
