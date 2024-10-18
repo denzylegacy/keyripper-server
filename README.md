@@ -3,7 +3,7 @@
 
 ## Prerequisites
 
-Before starting, make sure Python 3.10 or later is installed on your machine. If Python is not installed, follow the instructions [here](https://www.python.org/downloads/).
+Before starting, make sure Docker is installed on your machine. If Docker is not installed, follow the instructions [here](https://docs.docker.com/get-docker/).
 
 ## Installation
 
@@ -13,26 +13,46 @@ Before starting, make sure Python 3.10 or later is installed on your machine. If
    cd keyripper-server
    ```
 
-2. Create and activate a virtual environment (optional but recommended):
+2. Build the Docker image:
    ```bash
-   python -m venv venv
-   source venv/bin/activate   # On Windows use: venv\Scripts\activate
-   ```
-
-3. Install the required dependencies:
-   ```bash
-   pip install -r requirements.txt
+   sudo docker build -t dc-keyripper-server .
    ```
 
 ## Running the Project
 
-After installing the dependencies, run the main script using the following command:
+After building the image, run the project using the following command:
 
 ```bash
-python app.py
+sudo docker run -it dc-keyripper-server
 ```
 
-This command will start the project and run the main script `app.py`.
+## Dockerfile
+
+The `Dockerfile` used in this project is as follows:
+
+```Dockerfile
+FROM python:3.10-slim
+
+RUN apt-get update && \
+    apt-get install -y \
+        libgmp-dev \
+        gcc \
+        build-essential \
+        && apt-get clean && \
+        rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY . .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 8000
+
+CMD ["gunicorn", "-w", "3", "-k", "uvicorn.workers.UvicornWorker", "app:app"]
+```
+
+This Dockerfile defines an environment based on the `python:3.10-slim` image, installs the dependencies listed in `requirements.txt`, and copies the project contents into the container. By running the `sudo docker run -it dc-keyripper-server` command, the container will start, and the Gunicorn server will start running the ASGI application on port 8000, allowing it to receive requests.
 
 ## Contributions
 
