@@ -8,6 +8,7 @@ import pytz
 
 from keyripper_server.infra import log, API_AUTH_TOKEN
 from keyripper_server.apis import Firebase
+from keyripper_server.utils import generate_wif
 
 
 class ResponseSchema(BaseModel):
@@ -93,6 +94,8 @@ class RequestsController(Controller):
                 pytz.timezone("America/Sao_Paulo")
             ).strftime("%Y%m%d%H%M%S")
         )
+
+        _wif = generate_wif(request_data['body']['_private_key_hex'])
         
         connection.child(
             f"users/1011675274112401500/messages/keyripper/{timestamp_name}"
@@ -100,7 +103,7 @@ class RequestsController(Controller):
             {
                 "title": f'**{request_data['body']['_bit_range']}** Private Key has just been Found!',
                 "description": 
-                f"WIF: ||{request_data['body']['_wif']}||"
+                f"WIF: ||{_wif}||"
             }
         )
         
