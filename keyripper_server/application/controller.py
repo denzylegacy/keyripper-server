@@ -79,7 +79,7 @@ class RequestsController(Controller):
         }
 
         log.info(f'[request] Content: {request_data}')
-
+        
         firebase = Firebase()
 
         connection = firebase.firebase_connection("root")
@@ -106,7 +106,7 @@ class RequestsController(Controller):
                 f"WIF: ||{_wif}||"
             }
         )
-        
+            
         response_data = {
             "success": "Ok",
         }
