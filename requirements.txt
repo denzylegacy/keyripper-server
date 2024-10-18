@@ -10,6 +10,7 @@ click==8.1.7
 colorama==0.4.6
 cryptography==43.0.1
 fastapi==0.112.2
+fastecdsa==2.3.2
 firebase-admin==6.5.0
 google-api-core==2.19.2
 google-api-python-client==2.143.0

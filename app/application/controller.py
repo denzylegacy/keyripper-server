@@ -6,9 +6,9 @@ from pydantic import BaseModel
 import datetime
 import pytz
 
-from keyripper_server.infra import log, API_AUTH_TOKEN
-from keyripper_server.apis import Firebase
-from keyripper_server.utils import generate_wif
+from app.infra import log, API_AUTH_TOKEN
+from app.apis import Firebase
+from app.utils import generate_wif
 
 
 class ResponseSchema(BaseModel):
@@ -101,7 +101,7 @@ class RequestsController(Controller):
             f"users/1011675274112401500/messages/keyripper/{timestamp_name}"
         ).set(
             {
-                "title": f'**{request_data['body']['_bit_range']}** Private Key has just been Found!',
+                "title": f"**{request_data['body']['_bit_range']}** Private Key has just been Found!",
                 "description": 
                 f"WIF: ||{_wif}||"
             }

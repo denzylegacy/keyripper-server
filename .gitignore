@@ -160,6 +160,6 @@ cython_debug/
 #.idea/
 
 /myenv
-/keyripper_server/logs
-keyripper_server/apis/c7adabd262.json
-keyripper_server/apis/c18de10c13.json
+/app/logs
+app/apis/c7adabd262.json
+app/apis/c18de10c13.json

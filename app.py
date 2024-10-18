@@ -1,7 +1,7 @@
 import uvicorn
 
-from keyripper_server import app
-from keyripper_server.infra import settings
+from app import app
+from app.infra import settings
 
 
 if __name__ == "__main__":

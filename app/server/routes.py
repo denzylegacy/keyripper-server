@@ -8,7 +8,7 @@ This router handles incoming requests to the keyripper API.
 from fastapi import APIRouter, Request, Response
 from fastapi.responses import RedirectResponse
 
-from keyripper_server.application import RequestsController
+from app.application import RequestsController
 
 
 router = APIRouter(prefix='/request', tags=['request'])

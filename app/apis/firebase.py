@@ -5,7 +5,7 @@ import json
 import firebase_admin
 from firebase_admin import credentials, db, initialize_app
 
-from keyripper_server.infra import log, FIREBASE_URL, FIREBASE_API_KEY
+from app.infra import log, FIREBASE_URL, FIREBASE_API_KEY
 
 
 class Firebase:
